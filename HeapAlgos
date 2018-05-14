@@ -1,0 +1,24 @@
+//NamePending -- Puneet Johal, Andrew Shao, Xinyi Huang
+//APCS2 pd2
+//HW48 -- Heap o'Trouble
+//2018-05-14 M
+
+adding to a heap:
+1. compare new value to root
+  a) if min-heap:
+    - if new value is > root, continue to step 2
+    - if new value is < root, new value becomes the new root
+  b) if max-heap:
+    - if new value is > root, new value becomes the new root
+    - if new value is < root, continue to step 2
+2. compare new value to left or right subtree
+  repeat step 1, with this node substituted for "root"
+
+remove from a heap:
+1. compare children of root
+  a) if min-heap:
+    - child with min key becomes new root
+    - return old root
+  b) if max-heap:
+    -child with max key becomes new root
+    - return old root
