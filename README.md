@@ -9,3 +9,12 @@ We decided to use Andrew's homework because the runtimes of his methods were in 
 * removeMin: O(n) <br>
 * peekMin: O(n) <br>
 * isEmpty: O(1)
+
+##Heap To-Do
+1. constructor - initialize \_heap as an empty ALHeap
+2. toString - prints the heap in a way that helps to visualize it better
+3. isEmpty - returns if size == 0
+4. add -
+5. minChildPos
+6. peekMin
+7. removeMin
