@@ -86,12 +86,14 @@ public class ALHeap
   {
 	  if ( isEmpty() )
 		  throw new NoSuchElementException();
-	  int index = 0;
+	  swap( 0, _heap.size() - 1 );
+	  int retVal = _heap.remove( _heap.size() - 1 );
+	  index = 0;
 	  while( minChildPos( index ) > -1 ) {
-		  swap( index, minChildPos( index ) );
-		  index = minChildPos( index );
+	      swap( index, minChildPos( index ) );
+	      index = minChildPos( index );
 	  }
-	  return _heap.remove( index );
+	  return retVal;
   }//O(?)
 
 
