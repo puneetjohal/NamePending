@@ -5,6 +5,7 @@
  *****************************************************/
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class ALHeap
 {
@@ -30,7 +31,7 @@ public class ALHeap
    *****************************************************/
   public String toString()
   {
-      _heap.toString();
+      return _heap.toString();
   }//O(?)
 
 
@@ -67,6 +68,12 @@ public class ALHeap
    *****************************************************/
   public void add( Integer addVal )
   {
+	  int index = _heap.size();
+	  _heap.add( addVal );
+	  while( _heap.get( index ).compareTo( _heap.get( (index - 1) / 2 ) ) < 0 ) {
+		  swap( index, (index - 1) / 2 );
+		  index = (index - 1) / 2;
+	  }	  
   }//O(?)
 
 
@@ -77,6 +84,14 @@ public class ALHeap
    *****************************************************/
   public Integer removeMin()
   {
+	  if ( isEmpty() )
+		  throw new NoSuchElementException();
+	  int index = 0;
+	  while( minChildPos( index ) > -1 ) {
+		  swap( index, minChildPos( index ) );
+		  index = minChildPos( index );
+	  }
+	  return _heap.remove( index );
   }//O(?)
 
 
@@ -88,6 +103,12 @@ public class ALHeap
    *****************************************************/
   private int minChildPos( int pos )
   {
+	  int p = pos * 2 + 1;
+	  if ( p >= _heap.size() )
+		  return -1;
+	  if ( p + 1 >= _heap.size() )
+		  return p;
+	  return _heap.indexOf( minOf( _heap.get( p ), _heap.get( p + 1 ) ) );
   }//O(?)
 
 
@@ -112,7 +133,6 @@ public class ALHeap
   //main method for testing
   public static void main( String[] args )
   {
-    /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       ALHeap pile = new ALHeap();
 
       pile.add(2);
@@ -158,6 +178,7 @@ public class ALHeap
       System.out.println(pile);
       System.out.println("removing " + pile.removeMin() + "...");
       System.out.println(pile);
+    /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
   }//end main()
 
