@@ -32,7 +32,7 @@ public class ALHeap
   public String toString()
   {
       return _heap.toString();
-  }//O(?)
+  }//O(n)
 
 
   /*****************************************************
@@ -58,13 +58,17 @@ public class ALHeap
       else{
 	  return _heap.get(0);
       }
-  }//O(?)
+  }//O(1)
 
 
   /*****************************************************
    * add(Integer)
    * Inserts an element in the heap
    * Postcondition: Tree exhibits heap property.
+   *
+   * Algorithm:
+   * 1.	Insert element as right most node on bottom level
+   * 2.	While the element's parent is greater than it, swap its position with its parent
    *****************************************************/
   public void add( Integer addVal )
   {
@@ -74,13 +78,19 @@ public class ALHeap
 		  swap( index, (index - 1) / 2 );
 		  index = (index - 1) / 2;
 	  }	  
-  }//O(?)
+  }//O(logn)
 
 
   /*****************************************************
    * removeMin()  ---  means of removing an element from heap
    * Removes and returns least element in heap.
    * Postcondition: Tree maintains heap property.
+   * 
+   * Algorithm:
+   *	1.	Swap root of tree with rightmost node on bottom level
+   *	2.	Remove node from tree
+   *	3.	While new root element's smallest child is smaller than it,
+   *		swap it with that child
    *****************************************************/
   public Integer removeMin()
   {
@@ -88,13 +98,15 @@ public class ALHeap
 		  throw new NoSuchElementException();
 	  swap( 0, _heap.size() - 1 );
 	  int retVal = _heap.remove( _heap.size() - 1 );
-	  index = 0;
-	  while( minChildPos( index ) > -1 ) {
-	      swap( index, minChildPos( index ) );
-	      index = minChildPos( index );
+	  int root = 0;
+	  int child = 0;
+	  while( minChildPos( root ) > -1 && _heap.get( root ).compareTo( _heap.get( minChildPos( root ) ) ) > 0 ) {
+		  child = minChildPos( root );
+	      swap( root, child );
+		  root = child;
 	  }
 	  return retVal;
-  }//O(?)
+  }//O(logn)
 
 
   /*****************************************************
@@ -111,7 +123,7 @@ public class ALHeap
 	  if ( p + 1 >= _heap.size() )
 		  return p;
 	  return _heap.indexOf( minOf( _heap.get( p ), _heap.get( p + 1 ) ) );
-  }//O(?)
+  }//O(1)
 
 
   //************ aux helper fxns ***************
@@ -157,7 +169,7 @@ public class ALHeap
       System.out.println(pile);
       pile.add(9);
       System.out.println(pile);
-
+	  
       System.out.println("removing " + pile.removeMin() + "...");
       System.out.println(pile);
       System.out.println("removing " + pile.removeMin() + "...");
